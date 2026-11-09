@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Reef Sort – TikTok</title>
+<style>
+  body { margin: 0; font: 16px/1.5 -apple-system, "Segoe UI", sans-serif;
+    background: #eef6fb; color: #0c2b45; display: grid; place-items: center;
+    min-height: 100vh; padding: 16px; box-sizing: border-box; }
+  main { max-width: 520px; background: #fff; border-radius: 14px; padding: 24px; }
+  code { display: block; word-break: break-all; background: #eef6fb; padding: 10px;
+    border-radius: 8px; margin: 12px 0; }
+  button { font: inherit; border: 0; border-radius: 8px; padding: 8px 14px;
+    background: #2f6f9f; color: #fff; cursor: pointer; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Reef Sort</h1>
+  <!-- Redirect page of the Reef Sort marketing pipeline (marketing/auth.sh tiktok).
+       The code stays in this page: nothing is sent anywhere. -->
+  <p id="msg">Codice di autorizzazione TikTok:</p>
+  <code id="code">–</code>
+  <button id="copy">Copia</button>
+  <p>Poi sul Mac: <b>bash marketing/auth.sh tiktok --code</b> e incolla il codice.</p>
+</main>
+<script>
+  const params = new URLSearchParams(location.search);
+  const code = params.get('code');
+  const box = document.getElementById('code');
+  if (code) {
+    box.textContent = code;
+  } else {
+    document.getElementById('msg').textContent =
+      'Nessun codice: ' + (params.get('error_description') || params.get('error') || 'riprova');
+  }
+  document.getElementById('copy').onclick = () => navigator.clipboard.writeText(code || '');
+</script>
+</body>
+</html>
